@@ -1,29 +1,29 @@
-//
-//  MapView.swift
-//  Landmarks
-//
-//  Created by 신한섭 on 2020/11/22.
-//
+/*
+See LICENSE folder for this sample’s licensing information.
+
+Abstract:
+A view that hosts an `MKMapView`.
+*/
 
 import SwiftUI
 import MapKit
 
 struct MapView: UIViewRepresentable {
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        let coordinate = CLLocationCoordinate2D(
-            latitude: 34.011286, longitude: -116.166868)
-        let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
-        let region = MKCoordinateRegion(center: coordinate, span: span)
-        uiView.setRegion(region, animated: true)
-    }
+    var coordinate: CLLocationCoordinate2D
     
     func makeUIView(context: Context) -> MKMapView {
         MKMapView(frame: .zero)
+    }
+
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        let span = MKCoordinateSpan(latitudeDelta: 2.0, longitudeDelta: 2.0)
+        let region = MKCoordinateRegion(center: coordinate, span: span)
+        uiView.setRegion(region, animated: true)
     }
 }
 
 struct MapView_Previews: PreviewProvider {
     static var previews: some View {
-        MapView()
+        MapView(coordinate: landmarkData[0].locationCoordinate)
     }
 }
